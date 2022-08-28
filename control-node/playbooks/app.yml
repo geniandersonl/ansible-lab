@@ -39,7 +39,7 @@
     - name: Removendo arquivo tar baixado
       file:
         path: "/opt/apache-maven-3.1.0-bin.tar.gz"
-        state: absent      
+        state: absent
 
     # - name: Criando um arquivo maven.sh vazio
     #   file:
@@ -99,7 +99,7 @@
         dest: /opt/notes/src/main/resources/application.properties
 
     - name: Gerar pacote da aplicacao
-      command: /opt/apache-maven-3.1.0/bin/mvn -f /opt/notes/pom.xml package -Dmaven.test.skip=true
+      command: mvn -f /opt/notes/pom.xml package -Dmaven.test.skip=true
       become: true
     #      become_user: app
 
