@@ -74,7 +74,7 @@
 
     - name: Registrar versao atual do pacote
       shell:
-        cmd: /opt/apache-maven-3.1.0/bin/mvn org.apache.maven.plugins:maven-help-plugin:3.1.0:evaluate -Dexpression=project.version | grep -v '\['
+        cmd: /opt/apache-maven-3.1.0/bin/mvn org.apache.maven.plugins:maven-help-plugin:2.1.1:evaluate -Dexpression=project.version | grep -v '\['
         chdir: /opt/notes
       register: app_version
 
