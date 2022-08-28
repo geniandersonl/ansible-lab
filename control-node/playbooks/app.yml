@@ -68,9 +68,13 @@
         src: application.properties
         dest: /opt/notes/src/main/resources/application.properties
 
+    - name: Gerar pacote da aplicacao
+      command: /opt/apache-maven-3.1.0/bin/mvn -f /opt/notes/pom.xml package
+      become_user: app
+
     - name: Registrar versao atual do pacote
       shell:
-        cmd: /opt/apache-maven-3.1.0/bin/mvn org.apache.maven.plugins:maven-help-plugin:2.1.1:evaluate -Dexpression=project.version | grep -v '\['
+        cmd: /opt/apache-maven-3.1.0/bin/mvn org.apache.maven.plugins:maven-help-plugin:3.1.0:evaluate -Dexpression=project.version | grep -v '\['
         chdir: /opt/notes
       register: app_version
 
@@ -97,9 +101,7 @@
         state: restarted
         daemon_reload: yes
         name: "notes"
-        sleep: 5
 
     - name: reload daemon
       systemd:
         daemon_reexec: yes
-        sleep: 5
