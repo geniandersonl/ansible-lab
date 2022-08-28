@@ -70,13 +70,18 @@
 
     - name: Gerar pacote da aplicacao
       command: /opt/apache-maven-3.1.0/bin/mvn -f /opt/notes/pom.xml package -Dmaven.test.skip=true
-      become_user: app
+      become: true
+    #      become_user: app
 
     - name: Registrar versao atual do pacote
       shell:
         cmd: /opt/apache-maven-3.1.0/bin/mvn org.apache.maven.plugins:maven-help-plugin:2.1.1:evaluate -Dexpression=project.version | grep -v '\['
         chdir: /opt/notes
       register: app_version
+
+    - name: Versao do pacote
+      debug:
+        msg: Versao "{{ app_version.stdout }}"
 
     - name: Configurar servico do Systemd
       template:
