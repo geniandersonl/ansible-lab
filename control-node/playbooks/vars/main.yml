@@ -1,0 +1,11 @@
+---
+mysql_root_password: estudo
+mysql_databases:
+  - name: nodes
+    encoding: latin1
+    collation: latin1_general_ci
+mysql_users:
+  - name: notesapp
+    host: "%"
+    password: estudo
+    priv: "notes.*:ALL"
