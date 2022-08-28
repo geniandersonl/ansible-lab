@@ -13,3 +13,10 @@
     - 192.168.1.2 control-node
     - 192.168.1.3 app01
     - 192.168.1.4 db01
+
+- name: Configurando Timezone
+  file:
+    src: /usr/share/zoneinfo/America/Fortaleza
+	dest: /etc/localtime
+	state: link
+	force: yes

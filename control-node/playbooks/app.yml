@@ -29,6 +29,36 @@
         dest: /opt/
         remote_src: yes
 
+    - name: Criando um link simbolico
+      file:
+        src: "/opt/apache-maven-3.1.0"
+        dest: "/opt/maven"
+        state: link
+        force: yes
+
+    - name: Removendo arquivo tar baixado
+      file:
+        path: "/opt/apache-maven-3.1.0-bin.tar.gz"
+        state: absent      
+
+    # - name: Criando um arquivo maven.sh vazio
+    #   file:
+    #     path: "/etc/profile.d/maven.sh"
+    #     state: touch
+
+    - name: Criando um arquivo maven.sh
+      become: yes
+      copy:
+        dest: "/etc/profile.d/maven.sh"
+        content: |
+          export JAVA_HOME=/usr/lib/jvm/jre-openjdk
+          export M2_HOME=/opt/maven
+          export MAVEN_HOME=/opt/maven
+          export PATH=${M2_HOME}/bin:${PATH}
+
+    - name: Executando source do arquivo
+      shell: source /etc/profile.d/maven.sh
+
     # - name: Instalacao do Maven
     #   yum:
     #     name: maven
