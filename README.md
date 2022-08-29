@@ -38,12 +38,13 @@ $ cat control-node/certs/id_rsa.pub
 ```
 
 #### Copia a saida e cole dentro do arquivo db01/provision.sh e app01/provision.sh
+```
 #/bin/sh
-  
+
 cat <<EOT >>/home/vagrant/.ssh/authorized_keys
 **COLE AQUI A SAIDA**  
 EOT
-
+```
 #### Após esses passos vamos provisinar o ambiente e testar
 ```
 $ cd control-node
