@@ -51,6 +51,7 @@
       copy:
         dest: "/etc/profile.d/maven.sh"
         content: |
+          #!/bin/bash
           export JAVA_HOME=/usr/lib/jvm/jre-openjdk
           export M2_HOME=/opt/maven
           export MAVEN_HOME=/opt/maven
@@ -102,14 +103,16 @@
       become: yes
       become_user: root
       shell:
-        cmd: /opt/apache-maven-3.1.0/bin/mvn package -Dmaven.test.skip=true
+        #        cmd: /opt/apache-maven-3.1.0/bin/mvn package -Dmaven.test.skip=true
+        cmd: mvn package
         chdir: /opt/notes
 
     - name: Registrar versao atual do pacote
       become: yes
       become_user: root
       shell:
-        cmd: /opt/apache-maven-3.1.0/bin/mvn org.apache.maven.plugins:maven-help-plugin:2.1.1:evaluate -Dexpression=project.version | grep -v '\['
+        #        cmd: /opt/apache-maven-3.1.0/bin/mvn org.apache.maven.plugins:maven-help-plugin:2.1.1:evaluate -Dexpression=project.version | grep -v '\['
+        cmd: mvn org.apache.maven.plugins:maven-help-plugin:2.1.1:evaluate -Dexpression=project.version
         chdir: /opt/notes
       register: app_version
 
