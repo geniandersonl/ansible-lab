@@ -99,14 +99,14 @@
         dest: /opt/notes/src/main/resources/application.properties
 
     - name: Gerar pacote da aplicacao
-      command: mvn -f /opt/notes/pom.xml package -Dmaven.test.skip=true
-      become: true
-    #      become_user: app
+      become: yes
+      shell:
+        cmd: /opt/apache-maven-3.1.0/bin/mvn package -Dmaven.test.skip=true
+        chdir: /opt/notes
 
     - name: Registrar versao atual do pacote
       shell:
-        #        cmd: /opt/apache-maven-3.1.0/bin/mvn org.apache.maven.plugins:maven-help-plugin:2.1.1:evaluate -Dexpression=project.version | grep -v '\['
-        cmd: cat pom.xml | grep version | cut -d">" -f2 | grep -o 1.0.0
+        cmd: /opt/apache-maven-3.1.0/bin/mvn org.apache.maven.plugins:maven-help-plugin:2.1.1:evaluate -Dexpression=project.version | grep -v '\['
         chdir: /opt/notes
       register: app_version
 
