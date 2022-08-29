@@ -3,6 +3,7 @@
 cp /vagrant/certs/id_rsa* /home/vagrant/.ssh/
 chown vagrant: /home/vagrant/.ssh/id_rsa*
 
+sudo yum update -y
 sudo yum -y install epel-release
 echo "Inicio da instalacao do Ansible"
 sudo yum -y install ansible
