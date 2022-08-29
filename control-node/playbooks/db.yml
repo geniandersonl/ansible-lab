@@ -8,7 +8,7 @@
     - vars/main.yml
   vars:
     - dbname: "db01"
-    - dbusername: "root"
+    - dbusername: "notesapp"
     - dbpasword: "estudo"
 
   roles:
