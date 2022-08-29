@@ -1,4 +1,4 @@
-**Esse Playbook está sendo executado no Ubuntu 22.04 LTS utilizando libvirt e não no ~~virtualbox~~**
+**Esse Playbook está sendo executado no Ubuntu 22.04 LTS utilizando libvirt ao invés do ~~virtualbox~~. Nele consta algumas variáveis com senhas porque é um ambiente apenas de estudos**
 
 #### Caso não tenha os pacotes necessários siga os seguintes passos
 
@@ -82,6 +82,6 @@ $ ansible-playbook -i hosts app.yml
 #### Testando a API
 ```
 $ cd  /vagrant
-curl -H "Content-Type: application/json" --data @note.json http://app01:8080/api/notes
-curl http://app01:8080/api/notes
+$ curl -H "Content-Type: application/json" --data @note.json http://app01:8080/api/notes
+$ curl http://app01:8080/api/notes
 ```
