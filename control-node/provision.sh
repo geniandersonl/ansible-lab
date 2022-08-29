@@ -3,7 +3,6 @@
 sudo yum -y install epel-release
 echo "Inicio da instalacao do Ansible"
 sudo yum -y install ansible
-sudo yum install java-1.8.0-openjdk-devel -y
 #ansible-galaxy install geerlingguy.mysql
 cat <<EOT >>/etc/hosts
 192.168.1.2 control-node
