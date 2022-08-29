@@ -1,5 +1,5 @@
 ---
-- name: Congiurar servidor de aplicacao Java
+- name: Configurar servidor de aplicação Java
   hosts: app01
 
   user: vagrant
@@ -9,7 +9,7 @@
     - dbhost: "db01"
     - dbname: "notes"
     - dbusername: "notesapp"
-    - dbpassword: "estudo"
+    - dbpassword: "devopsmaonamassa"
 
   tasks:
     - name: Adicionar usuario de app
@@ -89,10 +89,18 @@
         clone: yes
         force: yes
 
-    - name: Configurar arquivo pom.xml com repositorios maven central
-      template:
-        src: pom.xml
+    #    - name: Configurar arquivo pom.xml com repositorios maven central
+    #      template:
+    #        src: pom.xml
+    #        dest: /opt/notes/pom.xml
+
+    - name: Copiando arquivo de configuração pom.xml
+      copy:
+        src: ./files/pom.xml
         dest: /opt/notes/pom.xml
+        owner: app
+        group: app
+        mode: 0755
 
     - name: Configurar arquivo de propriedades para camada de banco de dados
       template:
@@ -101,24 +109,20 @@
 
     - name: Gerar pacote da aplicacao
       become: yes
-      become_user: root
       shell:
-        #        cmd: /opt/apache-maven-3.1.0/bin/mvn package -Dmaven.test.skip=true
-        cmd: mvn package
+        cmd: /opt/apache-maven-3.1.0/bin/mvn package
         chdir: /opt/notes
 
     - name: Registrar versao atual do pacote
       become: yes
-      become_user: root
       shell:
-        #        cmd: /opt/apache-maven-3.1.0/bin/mvn org.apache.maven.plugins:maven-help-plugin:2.1.1:evaluate -Dexpression=project.version | grep -v '\['
-        cmd: mvn org.apache.maven.plugins:maven-help-plugin:2.1.1:evaluate -Dexpression=project.version
+        cmd: /opt/apache-maven-3.1.0/bin/mvn org.apache.maven.plugins:maven-help-plugin:2.1.1:evaluate -Dexpression=project.version
         chdir: /opt/notes
       register: app_version
 
-    - name: Versao do pacote
-      debug:
-        msg: Versao "{{ app_version.stdout }}"
+    # - name: Versao do pacote
+    #   debug:
+    #     msg: Versao "{{ app_version.stdout }}"
 
     - name: Configurar servico do Systemd
       template:
