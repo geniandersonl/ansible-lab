@@ -77,3 +77,10 @@ $ ansible-galaxy install geerlingguy.mysql
 $ ansible-playbook -i hosts db.yml
 $ ansible-playbook -i hosts app.yml
 ```
+
+#### Testando a API
+```
+$ cd  /vagrant
+curl -H "Content-Type: application/json" --data @note.json http://app01:8080/api/notes
+curl http://app01:8080/api/notes
+```
