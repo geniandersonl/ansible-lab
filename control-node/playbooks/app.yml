@@ -1,5 +1,5 @@
 ---
-- name: Configurar servidor de aplicação Java
+- name: Configurar servidor de aplicacao Java
   hosts: app01
 
   user: vagrant
@@ -10,6 +10,14 @@
     - dbname: "notes"
     - dbusername: "notesapp"
     - dbpassword: "devopsmaonamassa"
+
+  pre_tasks:
+    - name: Upgrade de todos os pacotes do s.o
+      yum:
+        name: "*"
+        state: latest
+  roles:
+    - configuracao-so
 
   tasks:
     - name: Adicionar usuario de app
@@ -94,7 +102,7 @@
     #        src: pom.xml
     #        dest: /opt/notes/pom.xml
 
-    - name: Copiando arquivo de configuração pom.xml
+    - name: Copiando arquivo de configuracao pom.xml
       copy:
         src: ./files/pom.xml
         dest: /opt/notes/pom.xml
@@ -120,9 +128,9 @@
         chdir: /opt/notes
       register: app_version
 
-    # - name: Versao do pacote
-    #   debug:
-    #     msg: Versao "{{ app_version.stdout }}"
+    - name: Versao do pacote
+      debug:
+        msg: Versao "{{ app_version.stdout }}"
 
     - name: Configurar servico do Systemd
       template:
@@ -137,9 +145,6 @@
       service:
         name: notes
         state: restarted
-
-  roles:
-    - configuracao-default-so
 
   handlers:
     - name: reload app

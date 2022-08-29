@@ -10,6 +10,12 @@
     - dbname: "db01"
     - dbusername: "root"
     - dbpassword: "devopsmaonamassa"
+
+  pre_tasks:
+    - name: Upgrade de todos os pacotes do s.o
+      yum:
+        name: "*"
+        state: latest
   roles:
-    - configuracao-default-so
+    - configuracao-so
     - role: geerlingguy.mysql
